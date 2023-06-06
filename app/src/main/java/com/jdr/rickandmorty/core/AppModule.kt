@@ -28,5 +28,4 @@ object AppModule {
         return retrofit.create(ApiClient::class.java)
     }
 
-
 }
