@@ -10,7 +10,7 @@ class CharacterRepositoryImpl @Inject constructor(
 ) : CharacterRepository {
     override suspend fun getCharacters(
         pages: Int,
-        filterName: String
+        filterName: String?
     ): Result<List<CharacterModel>> =
         when (val res = dataSource.getCharacters(pages, filterName)) {
             is Result.Success -> {

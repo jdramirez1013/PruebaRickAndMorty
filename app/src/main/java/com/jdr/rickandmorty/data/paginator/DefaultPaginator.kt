@@ -1,5 +1,7 @@
 package com.jdr.rickandmorty.data.paginator
 
+import com.jdr.rickandmorty.data.remote.result.Result
+
 class DefaultPaginator<Key, Item>(
     private val initialKey: Key,
     private inline val onLoadUpdated: (Boolean) -> Unit,
@@ -20,14 +22,19 @@ class DefaultPaginator<Key, Item>(
         onLoadUpdated(true)
         val result = onRequest(currentKey)
         isMakingRequest = false
-        val items = result.getOrElse {
-            onError(it)
-            onLoadUpdated(false)
-            return
+        when(result){
+            is Result.Error -> {
+                onError(result.exception)
+                onLoadUpdated(false)
+            }
+            is Result.Success -> {
+                val items = result.data
+                currentKey = getNextKey(items)
+                onSuccess(items, currentKey)
+                onLoadUpdated(false)
+            }
         }
-        currentKey = getNextKey(items)
-        onSuccess(items, currentKey)
-        onLoadUpdated(false)
+
     }
 
     override fun reset() {

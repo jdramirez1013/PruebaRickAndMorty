@@ -10,7 +10,7 @@ class CharacterDataSourceImpl @Inject constructor(
     private val apiClient: ApiClient
 ): CharacterDataSource {
 
-    override suspend fun getCharacters(pages: Int, filterName: String): Result<ResponseModel<CharacterModel>> =
+    override suspend fun getCharacters(pages: Int, filterName: String?): Result<ResponseModel<CharacterModel>> =
         apiClient.getCharacters(pages, filterName).validateResponse()
 
 }

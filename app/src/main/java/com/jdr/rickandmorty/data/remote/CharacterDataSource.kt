@@ -6,6 +6,6 @@ import com.jdr.rickandmorty.data.remote.result.Result
 
 interface CharacterDataSource {
 
-    suspend fun getCharacters(pages: Int, filterName: String): Result<ResponseModel<CharacterModel>>
+    suspend fun getCharacters(pages: Int, filterName: String?): Result<ResponseModel<CharacterModel>>
 
 }
