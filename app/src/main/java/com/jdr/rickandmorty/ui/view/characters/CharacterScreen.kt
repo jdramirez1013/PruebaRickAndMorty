@@ -14,14 +14,16 @@ import androidx.compose.ui.unit.dp
 import com.jdr.rickandmorty.ui.theme.RickAndMortyTheme
 
 @Composable
-fun CharacterScreen(viewModel: CharacterViewModel){
+fun CharacterScreen(
+    viewModel: CharacterViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+) {
     val state = viewModel.state
     LazyColumn(
         modifier = Modifier.fillMaxSize()
-    ){
-        items(state.items.size){ i ->
+    ) {
+        items(state.items.size) { i ->
             val item = state.items[i]
-            if(i >= state.items.size - 1 && state.endReached.not() && state.isLoading.not()){
+            if (i >= state.items.size - 1 && state.endReached.not() && state.isLoading.not()) {
                 viewModel.loadNextItems()
             }
             CharacterItem(character = item)
@@ -45,6 +47,6 @@ fun CharacterScreen(viewModel: CharacterViewModel){
 @Composable
 fun previewCharacterScreen() {
     RickAndMortyTheme {
-        //CharacterScreen(viewModel = )
+        CharacterScreen()
     }
 }

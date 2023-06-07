@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="type">Type: </string>
+    <string name="gender">Gender:</string>
+    <string name="origin">Origin:</string>
+    <string name="location">Last known location:</string>
+</resources>

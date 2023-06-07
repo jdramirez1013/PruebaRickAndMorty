@@ -1,6 +1,8 @@
 package com.jdr.rickandmorty.data.paginator
 
+import androidx.lifecycle.viewModelScope
 import com.jdr.rickandmorty.data.remote.result.Result
+import kotlinx.coroutines.launch
 
 class DefaultPaginator<Key, Item>(
     private val initialKey: Key,

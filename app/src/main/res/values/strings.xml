@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">RickAndMorty</string>
+    <string name="app_name" translatable="false">RickAndMorty</string>
+    <string name="type">Tipo: </string>
+    <string name="gender">Género:</string>
+    <string name="origin">Origen:</string>
+    <string name="location">Última ubicación conocida:</string>
+    <string name="alive" translatable="false">Alive</string>
+    <string name="dead" translatable="false">Dead</string>
+    <string name="unknown" translatable="false">unknown</string>
 </resources>

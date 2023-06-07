@@ -9,6 +9,7 @@ import com.jdr.rickandmorty.data.paginator.DefaultPaginator
 import com.jdr.rickandmorty.data.repository.CharacterRepository
 import com.jdr.rickandmorty.model.CharacterModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
