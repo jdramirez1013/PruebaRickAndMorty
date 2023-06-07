@@ -8,4 +8,4 @@ Muestra los personajes de la serie Rick and Morty
 * Lottie
 
 
-![](https://github.com/jdramirez1013/PruebaRickAndMorty/blob/main/RickAndMorty.gif)
+<img src="https://github.com/jdramirez1013/PruebaRickAndMorty/blob/main/RickAndMorty.gif" width="30%" height="30%" />
