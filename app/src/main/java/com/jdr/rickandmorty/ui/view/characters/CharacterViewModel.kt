@@ -9,7 +9,10 @@ import com.jdr.rickandmorty.data.paginator.DefaultPaginator
 import com.jdr.rickandmorty.data.repository.CharacterRepository
 import com.jdr.rickandmorty.model.CharacterModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,6 +20,11 @@ import javax.inject.Inject
 class CharacterViewModel @Inject constructor(
     private val repository: CharacterRepository
 ) : ViewModel() {
+
+    private val _searchText = MutableStateFlow<String?>(null)
+    val searchText = _searchText.asStateFlow()
+
+    private var searchJob: Job? = null
 
     var state by mutableStateOf(ScreenState())
 
@@ -26,7 +34,7 @@ class CharacterViewModel @Inject constructor(
             state = state.copy(isLoading = it)
         },
         onRequest = { nextPage ->
-            repository.getCharacters(pages = nextPage)
+            repository.getCharacters(pages = nextPage, searchText.value)
         },
         getNextKey = {
             state.page + 1
@@ -38,7 +46,8 @@ class CharacterViewModel @Inject constructor(
             state = state.copy(
                 items = state.items + items,
                 page = newKey,
-                endReached = items.isEmpty()
+                endReached = items.isEmpty(),
+                error = null
             )
         }
     )
@@ -51,6 +60,18 @@ class CharacterViewModel @Inject constructor(
         viewModelScope.launch {
             paginator.loadNextItems()
         }
+    }
+
+    fun onSearchTextChange(text: String) {
+        _searchText.value = text
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
+            delay(500)
+            state = state.copy(page = 1, items = mutableListOf())
+            paginator.reset()
+            loadNextItems()
+        }
+
     }
 
 }

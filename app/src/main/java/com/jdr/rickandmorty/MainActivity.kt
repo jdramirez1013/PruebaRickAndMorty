@@ -42,7 +42,8 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         composition = composition,
                         iterations = LottieConstants.IterateForever,
-                        contentScale = ContentScale.FillBounds
+                        contentScale = ContentScale.FillBounds,
+                        speed = 2f
                     )
 
                     val viewModel = viewModel<CharacterViewModel>()

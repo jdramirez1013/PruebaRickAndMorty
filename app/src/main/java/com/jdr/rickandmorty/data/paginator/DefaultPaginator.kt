@@ -1,8 +1,6 @@
 package com.jdr.rickandmorty.data.paginator
 
-import androidx.lifecycle.viewModelScope
 import com.jdr.rickandmorty.data.remote.result.Result
-import kotlinx.coroutines.launch
 
 class DefaultPaginator<Key, Item>(
     private val initialKey: Key,
@@ -11,24 +9,25 @@ class DefaultPaginator<Key, Item>(
     private inline val getNextKey: suspend (List<Item>) -> Key,
     private inline val onError: suspend (Throwable?) -> Unit,
     private inline val onSuccess: suspend (items: List<Item>, newKey: Key) -> Unit
-): Paginator<Key, Item> {
+) : Paginator<Key, Item> {
 
     private var currentKey = initialKey
     private var isMakingRequest = false
 
     override suspend fun loadNextItems() {
-        if(isMakingRequest) {
+        if (isMakingRequest) {
             return
         }
         isMakingRequest = true
         onLoadUpdated(true)
         val result = onRequest(currentKey)
         isMakingRequest = false
-        when(result){
+        when (result) {
             is Result.Error -> {
                 onError(result.exception)
                 onLoadUpdated(false)
             }
+
             is Result.Success -> {
                 val items = result.data
                 currentKey = getNextKey(items)

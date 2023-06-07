@@ -7,4 +7,5 @@
     <string name="alive" translatable="false">Alive</string>
     <string name="dead" translatable="false">Dead</string>
     <string name="unknown" translatable="false">unknown</string>
+    <string name="search">Buscar...</string>
 </resources>

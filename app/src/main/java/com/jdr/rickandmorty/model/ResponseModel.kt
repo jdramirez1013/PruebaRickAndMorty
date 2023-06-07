@@ -2,7 +2,8 @@ package com.jdr.rickandmorty.model
 
 data class ResponseModel<T> (
     val info: InfoModel,
-    val results: List<T>
+    val results: List<T>,
+    val error: String? = null
 )
 
 data class InfoModel(
